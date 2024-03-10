@@ -1,4 +1,4 @@
-_format_version: '2.1'
+_format_version: '3.0'
 _transform: true
 
 ###
@@ -6,12 +6,17 @@ _transform: true
 ###
 consumers:
   - username: DASHBOARD
+    basicauth_credentials:
+    - username: supabase
+      password: supabase
   - username: anon
-    keyauth_credentials:
-      - key: $SUPABASE_ANON_KEY
   - username: service_role
-    keyauth_credentials:
-      - key: $SUPABASE_SERVICE_KEY
+
+keyauth_credentials:
+  - consumer: anon
+    key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzA1NTA3MjAwLAogICJleHAiOiAxODYzMzYwMDAwCn0.lLdp7BX1DD2vwZlQEw0QbFuaxI_pv2G1bI2eis6wNVs
+  - consumer: service_role
+    key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogInNlcnZpY2Vfcm9sZSIsCiAgImlzcyI6ICJzdXBhYmFzZSIsCiAgImlhdCI6IDE3MDU1MDcyMDAsCiAgImV4cCI6IDE4NjMzNjAwMDAKfQ.gPkkfxbWcaISV_jAaaELdQWqWYrfF1xn7J5GoQ4wMrc
 
 ###
 ### Access Control List
@@ -21,15 +26,6 @@ acls:
     group: anon
   - consumer: service_role
     group: admin
-
-###
-### Dashboard credentials
-###
-basicauth_credentials:
-- consumer: DASHBOARD
-  username: $DASHBOARD_USERNAME
-  password: $DASHBOARD_PASSWORD
-
 
 ###
 ### API Routes
